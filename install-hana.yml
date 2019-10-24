@@ -1,0 +1,20 @@
+---
+- name: Prepare Server for SAP HANA Installation
+  hosts: hana
+  become: yes
+
+  roles:
+              - mk-ansible-roles.subscribe-rhn
+              - linux-system-roles.timesync 
+              - linux-system-roles.storage
+              - linux-system-roles.sap_preconfigure
+              - linux-system-roles.sap_hana_preconfigure 
+              - mk-ansible-roles.sap_hana_mediacheck 
+              - mk-ansible-roles.sap_hana_hostagent 
+
+- name: Run SAP HANA Installation
+  hosts: hana
+  become: yes
+
+  roles:                
+              - mk-ansible-roles.sap_hana_deployment

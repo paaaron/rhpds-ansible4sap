@@ -1,0 +1,14 @@
+---
+- name: unisntall HANA
+  hosts: hana
+  become: yes
+
+  tasks:                
+    - name: Run Installer
+      shell: |
+         if [ -f /hana/shared/{{ hana_sid | upper }}/global/hdb/install/bin/hdbuninst ]; then
+            /hana/shared/{{ hana_sid | upper }}/global/hdb/install/bin/hdbuninst -b
+         else
+            echo "HANA not installed"
+         fi
+
